@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Police seniority</string>
     <string name="text_privilege_seniority">Льготная выслуга</string>
+    <string name="coefficient_text">K</string>
+    <string name="default_type_of_job">Служба</string>
+    <string name="default_city">Москва</string>
+    <string name="from_text">С</string>
+    <string name="default_start_date">01.01.2001</string>
+    <string name="default_coefficient">1</string>
+    <string name="to_text">По</string>
+    <string name="default_end_date">01.01.2010</string>
 </resources>
