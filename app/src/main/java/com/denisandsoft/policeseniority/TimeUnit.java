@@ -1,5 +1,6 @@
 package com.denisandsoft.policeseniority;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeUnit {
@@ -7,7 +8,8 @@ public class TimeUnit {
     private String placeOfJob;
     private Date startDate;
     private Date endDate;
-    private float coefficient;
+    private double coefficient;
+
 
     public String getTypeOfJob() {
         return typeOfJob;
@@ -25,35 +27,40 @@ public class TimeUnit {
         this.placeOfJob = placeOfJob;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getStartDate() {
+        return stringFromData(startDate);
     }
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getEndDate() {
+        return stringFromData(endDate);
     }
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-    public float getCoefficient() {
-        return coefficient;
+    public String getCoefficient() {
+        return String.valueOf(coefficient);
     }
 
     public void setCoefficient(float coefficient) {
         this.coefficient = coefficient;
     }
 
-    public TimeUnit(String typeOfJob, String placeOfJob, Date startDate, Date endDate, float coefficient) {
+    public TimeUnit(String typeOfJob, String placeOfJob, Date startDate, Date endDate, double coefficient) {
         this.typeOfJob = typeOfJob;
         this.placeOfJob = placeOfJob;
         this.startDate = startDate;
         this.endDate = endDate;
         this.coefficient = coefficient;
+    }
+
+    private String stringFromData(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MainActivity.FORMAT_DATE);
+        return simpleDateFormat.format(date);
     }
 }
