@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,16 +14,16 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.TimeUnitHolder> {
 
-    private ArrayList<TimeUnit> timeUnits;
+    private ArrayList<TimePeriod> timePeriods;
 
-    public RecyclerViewAdapter(ArrayList<TimeUnit> timeUnits) {
-        this.timeUnits = timeUnits;
+    public RecyclerViewAdapter(ArrayList<TimePeriod> timePeriods) {
+        this.timePeriods = timePeriods;
     }
 
     @NonNull
     @Override
     public TimeUnitHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.time_unit_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.time_period_item, parent, false);
         return new TimeUnitHolder(view, view.getContext());
     }
 
@@ -32,22 +31,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull TimeUnitHolder timeUnitHolder, int position) {
         timeUnitHolder.currentCardPosition = position;
         CardView cardView = timeUnitHolder.cardView;
-        TimeUnit timeUnit = timeUnits.get(position);
+        TimePeriod timePeriod = timePeriods.get(position);
         TextView tvTypeOfJob = cardView.findViewById(R.id.tvTypeOfJob);
-        tvTypeOfJob.setText(timeUnit.getTypeOfJob());
+        tvTypeOfJob.setText(timePeriod.getTypeOfJob());
         TextView tvPlaceOfJob = cardView.findViewById(R.id.tvPlaceOfJob);
-        tvPlaceOfJob.setText(timeUnit.getPlaceOfJob());
+        tvPlaceOfJob.setText(timePeriod.getPlaceOfJob());
         TextView tvStartDate = cardView.findViewById(R.id.tvStartDate);
-        tvStartDate.setText(timeUnit.getStartDate());
+        tvStartDate.setText(timePeriod.getStartDate());
         TextView tvEndDate = cardView.findViewById(R.id.tvEndDate);
-        tvEndDate.setText(timeUnit.getEndDate());
+        tvEndDate.setText(timePeriod.getEndDate());
         TextView tvCoefficient = cardView.findViewById(R.id.tvCoefficient);
-        tvCoefficient.setText(timeUnit.getCoefficient());
+        tvCoefficient.setText(timePeriod.getCoefficient());
     }
 
     @Override
     public int getItemCount() {
-        return timeUnits.size();
+        return timePeriods.size();
     }
 
     public static class TimeUnitHolder extends RecyclerView.ViewHolder {

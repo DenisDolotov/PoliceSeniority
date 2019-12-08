@@ -3,7 +3,7 @@ package com.denisandsoft.policeseniority;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TimeUnit {
+public class TimePeriod {
     private String typeOfJob;
     private String placeOfJob;
     private Date startDate;
@@ -51,7 +51,7 @@ public class TimeUnit {
         this.coefficient = coefficient;
     }
 
-    public TimeUnit(String typeOfJob, String placeOfJob, Date startDate, Date endDate, double coefficient) {
+    public TimePeriod(String typeOfJob, String placeOfJob, Date startDate, Date endDate, double coefficient) {
         this.typeOfJob = typeOfJob;
         this.placeOfJob = placeOfJob;
         this.startDate = startDate;
@@ -60,7 +60,7 @@ public class TimeUnit {
     }
 
     private String stringFromData(Date date){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MainActivity.FORMAT_DATE);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Helper.FORMAT_DATE);
         return simpleDateFormat.format(date);
     }
 }

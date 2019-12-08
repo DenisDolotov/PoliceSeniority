@@ -58,6 +58,7 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="addNewTimeUnit"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </RelativeLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TimePeriodEditActivity">
+
+    <EditText
+        android:id="@+id/etTypeOfJob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Тип службы или учёбы" />
+
+    <EditText
+        android:id="@+id/etPlaceOfJob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etTypeOfJob"
+        android:hint="Место службы или учёбы" />
+
+    <TextView
+        android:id="@+id/tvFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPlaceOfJob"
+        android:text="@string/from_text" />
+
+    <TextView
+        android:id="@+id/tvStartDatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPlaceOfJob"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/tvFrom"
+        android:text="@string/default_start_date" />
+
+    <TextView
+        android:id="@+id/tvTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvFrom"
+        android:text="@string/to_text" />
+
+    <TextView
+        android:id="@+id/tvEndDatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvFrom"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/tvTo"
+        android:text="@string/default_end_date" />
+
+    <EditText
+        android:id="@+id/etCoefficient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTo"
+        android:hint="Коеффициент"
+        android:inputType="number" />
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добавить"
+        android:onClick="addTimePeriod"
+        android:layout_below="@id/etCoefficient"/>
+</RelativeLayout>
