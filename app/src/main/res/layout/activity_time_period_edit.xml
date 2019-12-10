@@ -26,12 +26,13 @@
         android:text="@string/from_text" />
 
     <TextView
-        android:id="@+id/tvStartDatePicker"
+        android:id="@+id/tvStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etPlaceOfJob"
         android:layout_marginStart="8dp"
         android:layout_toEndOf="@id/tvFrom"
+        android:onClick="pickStartDate"
         android:text="@string/default_start_date" />
 
     <TextView
@@ -48,6 +49,7 @@
         android:layout_below="@id/tvFrom"
         android:layout_marginStart="8dp"
         android:layout_toEndOf="@id/tvTo"
+        android:onClick="pickEndDate"
         android:text="@string/default_end_date" />
 
     <EditText
@@ -56,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTo"
         android:hint="Коеффициент"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
     <Button
         android:layout_centerHorizontal="true"

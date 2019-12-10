@@ -46,6 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
+        if (timePeriods == null) return 0;
         return timePeriods.size();
     }
 

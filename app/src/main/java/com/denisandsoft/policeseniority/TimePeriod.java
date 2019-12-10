@@ -1,7 +1,7 @@
 package com.denisandsoft.policeseniority;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class TimePeriod {
     private String typeOfJob;
@@ -28,7 +28,7 @@ public class TimePeriod {
     }
 
     public String getStartDate() {
-        return stringFromData(startDate);
+        return Helper.stringFromDate(startDate);
     }
 
     public void setStartDate(Date startDate) {
@@ -36,7 +36,7 @@ public class TimePeriod {
     }
 
     public String getEndDate() {
-        return stringFromData(endDate);
+        return Helper.stringFromDate(endDate);
     }
 
     public void setEndDate(Date endDate) {
@@ -51,6 +51,12 @@ public class TimePeriod {
         this.coefficient = coefficient;
     }
 
+    public int getSeniority(){
+        long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return (int)Math.floor(diff*coefficient);
+    }
+
     public TimePeriod(String typeOfJob, String placeOfJob, Date startDate, Date endDate, double coefficient) {
         this.typeOfJob = typeOfJob;
         this.placeOfJob = placeOfJob;
@@ -59,8 +65,4 @@ public class TimePeriod {
         this.coefficient = coefficient;
     }
 
-    private String stringFromData(Date date){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Helper.FORMAT_DATE);
-        return simpleDateFormat.format(date);
-    }
 }

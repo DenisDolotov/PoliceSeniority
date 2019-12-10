@@ -11,15 +11,17 @@ public class Helper {
     final static String END_DATE = "endDate";
     final static String COEFFICIENT = "coefficient";
 
-
     final static String FORMAT_DATE = "dd.MM.yyyy";
+    final static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_DATE);
 
     protected static Date stringToDate(String date) {
-        String format = FORMAT_DATE;
         if (date == null) return null;
         ParsePosition pos = new ParsePosition(0);
-        SimpleDateFormat simpledateformat = new SimpleDateFormat(format);
-        Date stringDate = simpledateformat.parse(date, pos);
+        Date stringDate = simpleDateFormat.parse(date, pos);
         return stringDate;
+    }
+
+    static String stringFromDate(Date date){
+        return simpleDateFormat.format(date);
     }
 }
