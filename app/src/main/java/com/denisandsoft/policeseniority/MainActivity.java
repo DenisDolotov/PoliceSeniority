@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int REQUEST_CODE_TIME_UNIT_CREATE = 1001;
     private ArrayList<TimePeriod> timePeriods;
     private RecyclerView recyclerView;
     private TextView tvResultSeniority;
+    private String lastDate;
+    private RecyclerViewAdapter recyclerViewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(timePeriods);
+        recyclerViewAdapter = new RecyclerViewAdapter(timePeriods);
         recyclerView.setAdapter(recyclerViewAdapter);
-
     }
 
 //    private void initializeData() {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addNewTimeUnit(View view) {
         Intent intent = new Intent(this, TimePeriodEditActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_TIME_UNIT_CREATE);
+        startActivityForResult(intent, Helper.REQUEST_CODE_TIME_UNIT_CREATE);
     }
 
     @Override
@@ -58,20 +59,29 @@ public class MainActivity extends AppCompatActivity {
         if (data == null) {
             return;
         }
-        if (requestCode == REQUEST_CODE_TIME_UNIT_CREATE) {
-
-            String typeOfJob = data.getStringExtra(Helper.TYPE_OF_JOB);
-            String placeOfJob = data.getStringExtra(Helper.PLACE_OF_JOB);
-            Date startDate = Helper.stringToDate(data.getStringExtra(Helper.START_DATE));
-            Date endDate = Helper.stringToDate(data.getStringExtra(Helper.END_DATE));
-            double coefficient = Double.valueOf(data.getStringExtra(Helper.COEFFICIENT));
-            TimePeriod timePeriod = new TimePeriod(typeOfJob, placeOfJob, startDate, endDate, coefficient);
+        String typeOfJob = data.getStringExtra(Helper.TYPE_OF_JOB);
+        String placeOfJob = data.getStringExtra(Helper.PLACE_OF_JOB);
+        Date startDate = Helper.stringToDate(data.getStringExtra(Helper.START_DATE));
+        Date endDate = Helper.stringToDate(data.getStringExtra(Helper.END_DATE));
+        double coefficient = Double.valueOf(data.getStringExtra(Helper.COEFFICIENT));
+        TimePeriod timePeriod;
+        if (requestCode == Helper.REQUEST_CODE_TIME_UNIT_CREATE) {
+            timePeriod = new TimePeriod(typeOfJob, placeOfJob, startDate, endDate, coefficient);
             //TO DO
             //TimePeriod timePeriod = (TimePeriod) data.getSerializableExtra("name");
             timePeriods.add(timePeriod);
-            calculateSeniority();
-        }
 
+        } else if (requestCode == Helper.REQUEST_CODE_TIME_UNIT_EDIT) {
+            int currentTimePeriodPosition = data.getIntExtra(Helper.TIME_PERIOD_POSITION, 0);
+            timePeriod = timePeriods.get(currentTimePeriodPosition);
+            timePeriod.setTypeOfJob(typeOfJob);
+            timePeriod.setPlaceOfJob(placeOfJob);
+            timePeriod.setStartDate(startDate);
+            timePeriod.setEndDate(endDate);
+            timePeriod.setCoefficient(coefficient);
+            recyclerViewAdapter.notifyItemChanged(currentTimePeriodPosition);
+        }
+        calculateSeniority();
 
     }
 

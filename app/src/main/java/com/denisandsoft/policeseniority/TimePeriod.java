@@ -47,7 +47,7 @@ public class TimePeriod {
         return String.valueOf(coefficient);
     }
 
-    public void setCoefficient(float coefficient) {
+    public void setCoefficient(double coefficient) {
         this.coefficient = coefficient;
     }
 

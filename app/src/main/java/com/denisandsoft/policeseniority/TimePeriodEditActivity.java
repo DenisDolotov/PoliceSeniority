@@ -22,6 +22,9 @@ public class TimePeriodEditActivity extends AppCompatActivity {
     Button buttonAdd;
     Calendar startDate = Calendar.getInstance();
     Calendar endDate = Calendar.getInstance();
+    boolean hasEndDateChanged;
+    int currentTimePeriodPosition;
+
     DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             startDate.set(Calendar.YEAR, year);
@@ -32,9 +35,9 @@ public class TimePeriodEditActivity extends AppCompatActivity {
     };
     DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            startDate.set(Calendar.YEAR, year);
-            startDate.set(Calendar.MONTH, monthOfYear);
-            startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            endDate.set(Calendar.YEAR, year);
+            endDate.set(Calendar.MONTH, monthOfYear);
+            endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             setEndDate();
         }
     };
@@ -45,6 +48,17 @@ public class TimePeriodEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_period_edit);
         initialize();
+        Intent intent = getIntent();
+        int editCode = intent.getIntExtra(Helper.EDIT_CODE,0);
+        if (editCode == Helper.REQUEST_CODE_TIME_UNIT_EDIT){
+            etTypeOfJob.setText(intent.getStringExtra(Helper.TYPE_OF_JOB));
+            etPlaceOfJob.setText(intent.getStringExtra(Helper.PLACE_OF_JOB));
+            tvStartDate.setText(intent.getStringExtra(Helper.START_DATE));
+            tvEndDate.setText(intent.getStringExtra(Helper.END_DATE));
+            etCoefficient.setText(intent.getStringExtra(Helper.COEFFICIENT));
+            currentTimePeriodPosition = intent.getIntExtra(Helper.TIME_PERIOD_POSITION,0);
+            buttonAdd.setText("Сохранить");
+        }
     }
 
     private void initialize() {
@@ -54,6 +68,7 @@ public class TimePeriodEditActivity extends AppCompatActivity {
         tvEndDate = findViewById(R.id.tvEndDatePicker);
         etCoefficient = findViewById(R.id.etCoefficient);
         buttonAdd = findViewById(R.id.buttonAdd);
+        hasEndDateChanged = false;
     }
 
     public void addTimePeriod(View view) {
@@ -73,6 +88,7 @@ public class TimePeriodEditActivity extends AppCompatActivity {
         intent.putExtra(Helper.START_DATE, startDate);
         intent.putExtra(Helper.END_DATE, endDate);
         intent.putExtra(Helper.COEFFICIENT, coefficient);
+        intent.putExtra(Helper.TIME_PERIOD_POSITION, currentTimePeriodPosition);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -88,18 +104,19 @@ public class TimePeriodEditActivity extends AppCompatActivity {
     private void setStartDate() {
         String s = Helper.stringFromDate(startDate.getTime());
         tvStartDate.setText(s);
+
     }
 
     public void pickEndDate(View view) {
         new DatePickerDialog(TimePeriodEditActivity.this, endDateSetListener,
-                startDate.get(Calendar.YEAR),
-                startDate.get(Calendar.MONTH),
-                startDate.get(Calendar.DAY_OF_MONTH))
+                endDate.get(Calendar.YEAR),
+                endDate.get(Calendar.MONTH),
+                endDate.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
 
     private void setEndDate() {
-        String s = Helper.stringFromDate(startDate.getTime());
+        String s = Helper.stringFromDate(endDate.getTime());
         tvEndDate.setText(s);
     }
 }

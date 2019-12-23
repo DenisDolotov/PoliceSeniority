@@ -1,6 +1,8 @@
 package com.denisandsoft.policeseniority;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull TimeUnitHolder timeUnitHolder, int position) {
         timeUnitHolder.currentCardPosition = position;
+        timeUnitHolder.currentTimePeriod = timePeriods.get(position);
         CardView cardView = timeUnitHolder.cardView;
         TimePeriod timePeriod = timePeriods.get(position);
         TextView tvTypeOfJob = cardView.findViewById(R.id.tvTypeOfJob);
@@ -53,6 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static class TimeUnitHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         int currentCardPosition;
+        TimePeriod currentTimePeriod;
         Context mContext;
         TextView tvTypeOfJob;
         TextView tvPlaceOfJob;
@@ -71,7 +75,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvEndDate = itemView.findViewById(R.id.tvEndDate);
             tvCoefficient = itemView.findViewById(R.id.tvCoefficient);
             //TO DO: cardView.setOnClickListener()
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, TimePeriodEditActivity.class);
+                    intent.putExtra(Helper.TIME_PERIOD_POSITION,currentCardPosition);
+                    intent.putExtra(Helper.EDIT_CODE,Helper.REQUEST_CODE_TIME_UNIT_EDIT);
+                    intent.putExtra(Helper.TYPE_OF_JOB, currentTimePeriod.getTypeOfJob());
+                    intent.putExtra(Helper.PLACE_OF_JOB, currentTimePeriod.getPlaceOfJob());
+                    intent.putExtra(Helper.START_DATE, currentTimePeriod.getStartDate());
+                    intent.putExtra(Helper.END_DATE, currentTimePeriod.getEndDate());
+                    intent.putExtra(Helper.COEFFICIENT, currentTimePeriod.getCoefficient());
+                    ((Activity) context).startActivityForResult(intent, Helper.REQUEST_CODE_TIME_UNIT_EDIT);
+                }
+            });
+
         }
+
     }
 
 
